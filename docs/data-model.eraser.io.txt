@@ -1,0 +1,67 @@
+title Twitter Data Model
+
+// define tables
+users [icon: user, color: blue]{
+  id string pk
+  username string
+  email string
+}
+
+followers [icon: users, color: grey]{
+  userId string
+  followerId string
+}
+
+dms [icon: mail, color: green]{
+  id string pk
+  senderId string
+  receiverId string
+  content string
+}
+
+likes [icon: heart, color: red]{
+  id string pk
+  userId string
+  tweetId string
+}
+
+bookmarks [icon: bookmark, color: yellow]{
+  id string pk
+  userId string
+  tweetId string
+}
+
+retweets [icon: repeat, color: orange]{
+  id string pk
+  userId string
+  tweetId string
+}
+
+tweets [icon: message-circle]{
+  id string pk
+  authorId string
+  content string
+  createdAt timestamp
+}
+
+lists [icon: list, color: purple]{
+  id string pk
+  ownerId string
+  name string
+}
+
+
+// Relationships
+users.id - followers.userId
+users.id - followers.followerId
+users.id > dms.senderId
+users.id > dms.receiverId
+users.id > likes.userId
+users.id > bookmarks.userId
+users.id > retweets.userId
+tweets.id > likes.tweetId
+tweets.id > bookmarks.tweetId
+tweets.id > retweets.tweetId
+users.id > tweets.authorId
+users.id > lists.ownerId
+tweets.id > lists.tweetId
