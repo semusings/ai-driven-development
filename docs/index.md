@@ -1,3 +1,3 @@
 # Architecture knowledge base
 
-Refer to the [Twitter Data Model](./data-model) for detailed information.
+Refer to the [Twitter Data Model](./data-model.md) for detailed information.
