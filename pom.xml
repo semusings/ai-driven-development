@@ -7,8 +7,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <!-- ...existing modules... -->
         <module>twitter-data-model</module>
+        <module>user-service</module>
+        <module>tweet-service</module>
+        <module>dm-service</module>
     </modules>
 
     <build>
