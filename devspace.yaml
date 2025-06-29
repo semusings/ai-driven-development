@@ -1,0 +1,43 @@
+version: v2beta1
+name: twitter
+localRegistry:
+  name: container
+  namespace: registry
+  localbuild: false
+  image: registry:2.8.1
+  port: 5000
+pipelines:
+  dev: |-
+    create_deployments --all
+    start_dev --all
+  deploy: |-
+    build_images --all
+    create_deployments --all
+  deploy-auth: |-
+    create_deployments auth
+  deploy-dm: |-
+    create_deployments auth
+    create_deployments gateway dm
+  deploy-tweet: |-
+    create_deployments auth
+    create_deployments gateway tweet
+  deploy-user: |-
+    create_deployments auth
+    create_deployments gateway user
+images:
+  twitter-backend:
+    image: container.registry.svc.cluster.local:5000/apps/twitter-backend
+    tags:
+      - apps-twitter-backend-latest
+    dockerfile: ./maven.dockerfile
+    context: ./
+deployments:
+  twitter:
+    helm:
+      chart:
+        name: ./charts/twitter
+      values:
+        image:
+          repository: container.registry.svc.cluster.local:5000/apps/twitter-backend
+          tag: latest
+          command: [ "java", "-jar", "/app/dm.jar" ]

@@ -1,0 +1,11 @@
+Dockerfile
+target/
+
+.devspace
+.idea
+
+node_modules/
+venv/
+
+# Ignore .git folder
+.git
