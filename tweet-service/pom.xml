@@ -10,6 +10,10 @@
     <artifactId>tweet-service</artifactId>
     <packaging>jar</packaging>
 
+    <properties>
+        <quarkus.package.type>uber-jar</quarkus.package.type>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -52,7 +56,7 @@
         <!-- Your data model dependency -->
         <dependency>
             <groupId>com.semusings</groupId>
-            <artifactId>twitter-data-model</artifactId>
+            <artifactId>data-model</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -71,8 +75,6 @@
                     <execution>
                         <goals>
                             <goal>build</goal>
-                            <goal>generate-code</goal>
-                            <goal>generate-code-tests</goal>
                         </goals>
                     </execution>
                 </executions>

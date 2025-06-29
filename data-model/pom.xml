@@ -6,6 +6,6 @@
         <artifactId>ai-driven-development</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>twitter-data-model</artifactId>
+    <artifactId>data-model</artifactId>
 
 </project>

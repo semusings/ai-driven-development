@@ -9,18 +9,21 @@ WORKDIR /app
 
 # Install maven dependency packages
 COPY pom.xml .
-COPY ./twitter-data-model/pom.xml ./twitter-data-model/pom.xml
-COPY ./tweet-service/pom.xml ./tweet-service/pom.xml
+COPY ./data-model/pom.xml ./data-model/pom.xml
 COPY ./dm-service/pom.xml ./dm-service/pom.xml
+COPY ./dm-service/src/main/java/com/semusings/dm/DmServiceApplication.java ./dm-service/src/main/java/com/semusings/dm/DmServiceApplication.java
+COPY ./tweet-service/pom.xml ./tweet-service/pom.xml
+COPY ./tweet-service/src/main/java/com/semusings/tweet/TweetServiceApplication.java ./tweet-service/src/main/java/com/semusings/tweet/TweetServiceApplication.java
 COPY ./user-service/pom.xml ./user-service/pom.xml
-RUN mvn -T 1C install
+COPY ./user-service/src/main/java/com/semusings/user/UserServiceApplication.java ./user-service/src/main/java/com/semusings/user/UserServiceApplication.java
+RUN mvn -T 1C install -DskipTests -fae
 
 # Add source code files to WORKDIR
 ADD . .
 
-ENV MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
+ENV MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1 --enable-preview"
 
-RUN mvn package -T 1C -U -Dmaven.test.skip=true
+RUN mvn package -T 1C -U -DskipTests
 
 ################ Production ################
 FROM eclipse-temurin:24-jre-alpine as production
@@ -34,4 +37,4 @@ COPY --from=build /app/user-service/target/*.jar /app/user.jar
 
 EXPOSE 8080
 
-CMD ["/app/dm.jar"]
+CMD ["java", "--enable-native-access=ALL-UNNAMED", "-jar", "/app/user.jar"]

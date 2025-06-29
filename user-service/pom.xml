@@ -30,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>com.semusings</groupId>
-            <artifactId>twitter-data-model</artifactId>
+            <artifactId>data-model</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -49,6 +49,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>3.4.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!-- ...other plugins if any... -->
         </plugins>

@@ -1,0 +1,9 @@
+spring:
+  jms:
+    pub-sub-domain: false
+    template:
+      default-destination: dm-queue
+  artemis:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
